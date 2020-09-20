@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Vscode default folder
+.vscode

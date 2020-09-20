@@ -11,7 +11,7 @@ INCLUDE_DIRECTORIES  := -Iinclude
 LIB_DIRECTORIES      := -Llib/SFML
 
 # -l"filename without lib prefix and .a extension" add libraries to use (libfile.a / libfile.dll)
-LIB_FILES            := -lopenal32 -lsfml-system -lsfml-graphics -lsfml-window
+LIB_FILES            := -lopenal32 -lsfml-system -lsfml-graphics -lsfml-window -lopengl32
 
 app: $(O_FILES)
 	g++ $^ -o $@ $(LIB_DIRECTORIES) $(LIB_FILES) $(LINKED_FLAGS)

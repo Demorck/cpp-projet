@@ -1,31 +1,17 @@
-#include <SFML/Graphics.hpp>
+#include <Game.hpp>
+#include <GL/gl.h>
 
 int main()
 {
-    // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+   Game game;
 
-    sf::Font font;
-    if (!font.loadFromFile("arial.ttf"))
-        return EXIT_FAILURE;
-    sf::Text text("Hello SFML", font, 50);
-
-    while (window.isOpen())
+    while (game.isOpen())
     {
-        // Process events
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // Close window: exit
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-        // Clear screen
-        window.clear();
-        // Draw the string
-        window.draw(text);
-        // Update the window
-        window.display();
+        game.update();
+
+        game.render(); 
     }
-    return EXIT_SUCCESS;
+    
+
+    return 0;
 }
