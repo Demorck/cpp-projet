@@ -1,4 +1,6 @@
 #pragma once
+#ifndef GAME_H
+#define GAME_H
 
 /*!
  * @file Game.hpp
@@ -66,3 +68,6 @@ class Game
          */
         bool isOpen() const;
 };
+
+
+#endif

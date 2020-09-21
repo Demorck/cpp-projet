@@ -13,7 +13,7 @@ LIB_DIRECTORIES      := -Llib/SFML
 # -l"filename without lib prefix and .a extension" add libraries to use (libfile.a / libfile.dll)
 LIB_FILES            := -lopenal32 -lsfml-system -lsfml-graphics -lsfml-window -lopengl32
 
-app: $(O_FILES)
+program: $(O_FILES)
 	g++ $^ -o $@ $(LIB_DIRECTORIES) $(LIB_FILES) $(LINKED_FLAGS)
 
 %.o: %.cpp
@@ -22,5 +22,8 @@ app: $(O_FILES)
 %.o: %.rc
 	windres $^ -o $@ $(INCLUDE_DIRECTORIES)
 
-clean:
+cleanWindows:
 	del *.o *.exe /s
+
+cleanLinux:
+	rm -rf *.o *~
