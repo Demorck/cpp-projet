@@ -1,4 +1,3 @@
-#pragma once
 #ifndef GAME_H
 #define GAME_H
 
@@ -9,10 +8,7 @@
  * @version 0.1
  * @date 2020-09-21
  */
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <Constants.hpp>
-
+#include <States/GameState.hpp>
 
 class Game
 {
@@ -21,8 +17,14 @@ class Game
         sf::VideoMode videoMode; 
         sf::Event event;
 
+        sf::Clock dtClock;  // time to update & render 1 frameT
+        float deltaTime;    // time to update & render 1 frameT
+
+        std::stack<State*> states;
+
         void initVariables();
         void initWindow();
+        void initStates();
 
     public:
         /*!
@@ -67,6 +69,10 @@ class Game
          * @return true if the window is open
          */
         bool isOpen() const;
+
+        void updateDeltaTime();
+
+        void run();
 };
 
 

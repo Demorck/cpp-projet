@@ -1,7 +1,7 @@
-CPP_FILES       := $(wildcard src/*.cpp)
+CPP_FILES       := $(wildcard src/*.cpp src/States/*.cpp)
 RC_FILES        := $(wildcard res/*.rc)
 O_FILES         := $(subst .cpp,.o,$(CPP_FILES)) $(subst .rc,.o,$(RC_FILES))
-COMPILED_FLAGS  := -pedantic -W -Wall -O3
+COMPILED_FLAGS  := -pedantic -W -O3
 LINKED_FLAGS    := -s
 
 # -I"your-directory" add include directory (files .h) (HEADERS)
