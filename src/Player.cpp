@@ -9,7 +9,7 @@ Player::Player(float x, float y, sf::Texture& textureSheet) {
 
     this->createMovementHelper(20.0f, -20.0f);
     this->createAnimationHelper(textureSheet);
-    this->animationHelper->addAnimation("WALK_LEFT", 1.f, 0, 0, 11, 0, 84, 120); // 951 x 120 - 12 frames
+    this->animationHelper->addAnimation("WALK_LEFT", 1.f, 0, 0, 11, 0, 84, 120);
 
 }
 

@@ -46,10 +46,6 @@ void Game::pollEvents()
         case sf::Event::Closed:
             this->window->close();
             break;
-        case sf::Event::KeyPressed:
-            // if (this->event.key.code == sf::Keyboard::Escape)
-            //     this->window->close();
-            
         default:
             break;
         }

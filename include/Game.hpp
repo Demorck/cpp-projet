@@ -13,30 +13,67 @@
 class Game
 {
     private:
+        // Variables
         sf::RenderWindow* window;
         sf::VideoMode videoMode; 
         sf::Event event;
 
-        sf::Clock dtClock;  // time to update & render 1 frameT
-        float deltaTime;    // time to update & render 1 frameT
+        // Variables for time & ticks
+        sf::Clock dtClock;  // time to update & render 1 frame
+        float deltaTime;    // time to update & render 1 frame
 
+        // Stack for states to switch easily
         std::stack<State*> states;
 
+        // Functions
+        // Initialize variables
         void initVariables();
+        // Initialize windows
         void initWindow();
+        // Initialize states
         void initStates();
 
     public:
+        // Constructor / destructor
         Game();
         virtual ~Game();
 
-        
+        /**
+         * @brief Poll event from keyboard
+         * 
+         */
         void pollEvents();
+
+        /*!
+         * @brief Update the game
+         * 
+         */
         void update();
+
+        /*!
+         * @brief Render game
+         * 
+         */
         void render();
 
+        /*!
+         * @brief Return true if windows is open
+         * 
+         * @return true if windows is open
+         * @return false otherwise
+         */
         bool isOpen() const;
+
+        /*!
+         * @brief Update the delta time between each tick
+         * 
+         */
         void updateDeltaTime();
+
+        /*!
+         * @brief Main loop for the game
+         * 
+         */
         void run();
 };
 

@@ -35,4 +35,8 @@
 .vscode
 
 #Sprites Among Us
-/assets/AmongUsSprites
+assets/AmongUsSprites
+
+#Doxygen & Doxyfile
+Doxyfile
+Doxygen/
