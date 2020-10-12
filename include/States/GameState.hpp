@@ -8,9 +8,15 @@ class GameState:
     public State
 {
     private:
-        Player player;
-        void initKeybinds();
+        Player* player;
         std::map<std::string, int> keybinds;
+
+        std::map<std::string, sf::Texture> textures;
+        
+
+        void initKeybinds();
+        void initTextures();
+        void initPlayers();
 
     public:
         GameState(sf::RenderWindow* window);

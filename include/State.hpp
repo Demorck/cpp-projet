@@ -8,8 +8,6 @@ class State {
         sf::RenderWindow* window;
         bool quit;
 
-        std::vector<sf::Texture> textures;
-
         virtual void initKeybinds() = 0;
 
     public:
