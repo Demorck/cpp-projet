@@ -9,6 +9,7 @@
  * @date 2020-09-21
  */
 #include <States/GameState.hpp>
+#include <States/MainMenuState.hpp>
 
 class Game
 {

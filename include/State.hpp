@@ -15,19 +15,26 @@
 class State {
     private:
         // Variables
-        sf::RenderWindow* window;
-        bool quit;
 
         // Pure virtual functions
         virtual void initKeybinds() = 0;
+    
+    protected:
+        std::stack<State *>* states;
+        bool quit;
+        sf::RenderWindow* window;
+        sf::Vector2i mousePosScreen;
+        sf::Vector2i mousePosWindow;
+        sf::Vector2f mousePosView;
 
     public:
         /**
          * @brief Construct a new State object
          * 
          * @param window The window to render, update, etc.
+         * @param states States in game with we can swap
          */
-        State(sf::RenderWindow* window);
+        State(sf::RenderWindow* window, std::stack<State *>* states);
 
         /**
          * @brief Destroy the State object
@@ -48,6 +55,8 @@ class State {
          * 
          */
         virtual void checkQuitState();
+
+        virtual void updateMousePosition();
 
         // Pure virtual functions
         virtual void updateInputs(const float &dt) = 0;

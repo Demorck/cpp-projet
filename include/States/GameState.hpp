@@ -19,7 +19,7 @@ class GameState:
         void initPlayers();
 
     public:
-        GameState(sf::RenderWindow* window);
+        GameState(sf::RenderWindow* window, std::stack<State *>* states);
         virtual ~GameState();
 
         void endState();

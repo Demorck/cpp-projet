@@ -1,7 +1,7 @@
 #include <States/GameState.hpp>
 
-GameState::GameState(sf::RenderWindow* window)
-    : State(window)
+GameState::GameState(sf::RenderWindow* window, std::stack<State *>* states)
+    : State(window, states)
 {
     this->initKeybinds();
     this->initTextures();
@@ -16,7 +16,7 @@ GameState::~GameState()
 
 void GameState::endState()
 {
-
+    std::cout << "Ending GameState";
 }
 
 void GameState::initKeybinds()
@@ -72,7 +72,7 @@ void GameState::updateInputs(const float& dt)
 void GameState::update(const float& dt)
 {
     this->updateInputs(dt);
-    
+    this->updateMousePosition();
     this->player->update(dt);
     
 }

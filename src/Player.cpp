@@ -1,16 +1,16 @@
 #include "Player.hpp"
 
-Player::Player(float x, float y, sf::Texture& textureSheet) {
+Player::Player(float x, float y, sf::Texture& textureSheet)
+{
     // this->shape.setSize(sf::Vector2f(50.0f, 90.0f));
     this->movementHelper = NULL;
 
     this->createSprite(textureSheet);
     this->setPosition(x, y);
 
-    this->createMovementHelper(20.0f, -20.0f);
+    this->createMovementHelper(200.0f, -200.0f);
     this->createAnimationHelper(textureSheet);
     this->animationHelper->addAnimation("WALK_LEFT", 1.f, 0, 0, 11, 0, 84, 120);
-
 }
 
 Player::~Player()
