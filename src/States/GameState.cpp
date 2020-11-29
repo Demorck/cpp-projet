@@ -12,11 +12,16 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State *>* states)
 GameState::~GameState()
 {
     delete this->player;
+
+    for (auto i = this->players.begin(); i != this->players.end(); i++)
+    {
+        delete i->second;
+    }
 }
 
 void GameState::endState()
 {
-    std::cout << "Ending GameState";
+    std::cout << "Ending GameState\n";
 }
 
 void GameState::initKeybinds()
@@ -40,7 +45,7 @@ void GameState::initKeybinds()
 void GameState::initTextures()
 {
     sf::Texture currentTexture;
-    if (currentTexture.loadFromFile("assets/sprites/player/walk_spritesheet.png"))
+    if (currentTexture.loadFromFile("assets/sprites/player/spritesheet.png"))
     {
         this->textures["PLAYER_SHEET"] = currentTexture;
     }
@@ -53,6 +58,8 @@ void GameState::initTextures()
 void GameState::initPlayers()
 {
     this->player = new Player(50, 50, this->textures["PLAYER_SHEET"]);
+
+    this->players["Bot1"] = new Player(300, 300, this->textures["PLAYER_SHEET"]);
 }
 
 void GameState::updateInputs(const float& dt)
@@ -67,6 +74,8 @@ void GameState::updateInputs(const float& dt)
         this->player->move(dt, 0.0f, 1.0f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
         this->player->move(dt, 1.0f, 0.0f);
+
+    
 }
 
 void GameState::update(const float& dt)
@@ -74,10 +83,19 @@ void GameState::update(const float& dt)
     this->updateInputs(dt);
     this->updateMousePosition();
     this->player->update(dt);
+    this->players["Bot1"]->update(dt);
+
+    if (this->player->getHitboxHelper()->isIntersect(this->players["Bot1"]->getHitboxHelper()->getNextPosition(sf::Vector2f(0, 0))))
+    {
+        this->player->getHitboxHelper()->textIntersect();
+        this->players["Bot1"]->getHitboxHelper()->textIntersect();
+    }
+    
     
 }
 
 void GameState::render(sf::RenderTarget* target)
 {
     this->player->render(target);
+    this->players["Bot1"]->render(target);
 }

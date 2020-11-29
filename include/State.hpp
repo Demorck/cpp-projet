@@ -61,7 +61,7 @@ class State {
         // Pure virtual functions
         virtual void updateInputs(const float &dt) = 0;
         virtual void endState() = 0;
-        virtual void update(const float& dt) = 0;
+        virtual void update(const float &dt) = 0;
         virtual void render(sf::RenderTarget* target = nullptr) = 0;
 };
 

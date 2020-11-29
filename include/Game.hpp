@@ -8,8 +8,8 @@
  * @version 0.1
  * @date 2020-09-21
  */
-#include <States/GameState.hpp>
 #include <States/MainMenuState.hpp>
+#include <Settings.hpp>
 
 class Game
 {
@@ -18,6 +18,7 @@ class Game
         sf::RenderWindow* window;
         sf::VideoMode videoMode; 
         sf::Event event;
+        Settings* settings;
 
         // Variables for time & ticks
         sf::Clock dtClock;  // time to update & render 1 frame

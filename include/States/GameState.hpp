@@ -11,6 +11,8 @@ class GameState:
         Player* player;
         std::map<std::string, int> keybinds;
 
+        std::map<std::string, Player*> players;
+
         std::map<std::string, sf::Texture> textures;
         
 

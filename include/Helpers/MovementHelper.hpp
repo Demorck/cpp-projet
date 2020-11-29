@@ -9,24 +9,20 @@
  * @date 2020-10-13
  * 
  */
-#include <map>
-
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
+#include <headers.hpp>
 
 class MovementHelper
 {
     private:
+        sf::Sprite& sprite;
+
         // Variables
         float maxVelocity;
         float minVelocity;
 
         sf::Vector2f velocity;
-        sf::Vector2f acceleration;
-        sf::Vector2f deceleration;
+        float acceleration;
+        float deceleration;
 
     public:
         /**
@@ -35,7 +31,7 @@ class MovementHelper
          * @param maxVelocity max velocity to avoid glitches, bugs & infinite speed forward
          * @param minVelocity min velocity to avoid glitches, bugs & infinite speed backward (like SM64 & WW) (not implemented yet)
          */
-        MovementHelper(float maxVelocity, float minVelocity);
+        MovementHelper(sf::Sprite& sprite, float maxVelocity, float acceleration, float deceleration);
 
         /**
          * @brief Destroy the Movement Helper object

@@ -6,15 +6,14 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::stack<State *>* stat
     this->initFonts();
     this->initKeybinds();
     this->initButtons();
+    this->initBackground();
+    this->initVariables();
 
-    this->background.setSize(sf::Vector2f((float)window->getSize().x, (float)window->getSize().y));
     this->background.setFillColor(sf::Color::Yellow);
 }
 
 MainMenuState::~MainMenuState()
 {
-    
-    
     for (auto i = this->buttons.begin(); i != this->buttons.end(); i++)
     {
         delete i->second;
@@ -24,7 +23,22 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::endState()
 {
-    std::cout << "Ending MainMenuState";
+    std::cout << "Ending MainMenuState\n";
+}
+
+void MainMenuState::initVariables()
+{
+
+}
+
+void MainMenuState::initBackground()
+{
+    this->background.setSize(sf::Vector2f((float)this->window->getSize().x, (float)this->window->getSize().y));
+
+    if(!this->backgroundTexture.loadFromFile("assets/sprites/background/MainMenu.jpg"))
+        throw "Error when loading background in MainMenuState";
+
+    this->background.setTexture(&this->backgroundTexture);
 }
 
 void MainMenuState::initFonts()
@@ -42,16 +56,18 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initButtons()
 {
-    this->buttons["GAME_STATE"] = new Button(100, 100, 150, 50, "Game state", &this->font, sf::Color::Red, sf::Color::Black, sf::Color::White);
-    this->buttons["EXIT_STATE"] = new Button(100, 200, 150, 50, "Exit state", &this->font, sf::Color::Red, sf::Color::Black, sf::Color::White);
+    this->buttons["GAME_STATE"] = new Button(100, 100, 150, 50, "Game state", &this->font, sf::Color(138, 138, 138), sf::Color(123, 123, 123), sf::Color(52, 170, 173));
+    this->buttons["EXIT_STATE"] = new Button(100, 200, 150, 50, "Exit state", &this->font, sf::Color::Red, sf::Color::Blue, sf::Color::White);
 
-}
+    sf::Texture tempTexture;
+    if(!tempTexture.loadFromFile("assets/sprites/buttons/check.png"))
+        throw "Error when loading check in MainMenuState";
+    
+    sf::Texture tempTextureHover;
+    if(!tempTexture.loadFromFile("assets/sprites/buttons/checkHover.png"))
+        throw "Error when loading check in MainMenuState";
 
-void MainMenuState::update(const float& dt)
-{
-    this->updateInputs(dt);
-    this->updateMousePosition();
-    this->updateButtons();
+    // this->buttons["CHECK_BTN"] = new Button(100, 400, 150, 150, tempTexture, tempTextureHover);
 }
 
 void MainMenuState::updateInputs(const float& dt)
@@ -75,7 +91,21 @@ void MainMenuState::updateButtons()
     {
         this->quit = true;
     }
-    
+}
+
+void MainMenuState::update(const float& dt)
+{
+    this->updateInputs(dt);
+    this->updateMousePosition();
+    this->updateButtons();
+}
+
+void MainMenuState::renderButtons(sf::RenderTarget* target)
+{
+    for (auto &i : this->buttons)
+    {
+        i.second->render(target);
+    }
 }
 
 void MainMenuState::render(sf::RenderTarget* target)
@@ -85,12 +115,4 @@ void MainMenuState::render(sf::RenderTarget* target)
     
     target->draw(this->background);
     this->renderButtons(target);
-}
-
-void MainMenuState::renderButtons(sf::RenderTarget* target)
-{
-    for (auto &i : this->buttons)
-    {
-        i.second->render(target);
-    }
 }

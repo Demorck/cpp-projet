@@ -15,11 +15,11 @@
 #include <iostream>
 
 #include <Helpers/AnimationHelper.hpp>
+#include <Helpers/HitboxHelper.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 // #include <SFML/Network.hpp>
-#include <Constants.hpp>
 
 
 class Player
@@ -33,6 +33,7 @@ class Player
         // Variables Helper
         AnimationHelper* animationHelper;
         MovementHelper* movementHelper;
+        HitboxHelper* hitboxHelper;
 
         // Function
         // Create sprite
@@ -68,7 +69,11 @@ class Player
          * @param maxVelocity max velocity to avoid glitches, bugs & infinite speed forward
          * @param minVelocity min velocity to avoid glitches, bugs & infinite speed backward (like SM64 & WW) (not implemented yet)
          */
-        void createMovementHelper(const float maxVelocity, const float minVelocity);
+        void createMovementHelper(const float maxVelocity, const float acceleration, const float deceleration);
+
+        AnimationHelper* getAnimationHelper();
+
+        HitboxHelper* getHitboxHelper();
 
         /**
          * @brief Set the Position of player 

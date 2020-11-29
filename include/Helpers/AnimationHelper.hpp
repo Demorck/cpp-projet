@@ -62,7 +62,7 @@ class AnimationHelper {
                  * 
                  * @param dt delta time
                  */
-                void play(const float& dt)
+                const bool& play(const float& dt)
                 {
                     this->timer += 10.f * dt;
                     if (this->timer >= this->speedAnimation)
@@ -81,10 +81,8 @@ class AnimationHelper {
                         
                         this->sprite.setTextureRect(this->currentRect);
                     }
-                    else
-                    {
-                        this->done = true;
-                    }
+                    
+                    return this->done = true;
                     
                 }
 
@@ -118,7 +116,9 @@ class AnimationHelper {
 
         sf::Sprite& sprite;
         sf::Texture& textureSheet;
-        std::map<std::string, Animation*> animation;
+        std::map<std::string, Animation*> animations;
+        Animation* lastAnimation;
+        Animation* priorityAnimation;
 
     public:
         /**
@@ -163,7 +163,7 @@ class AnimationHelper {
          * @param key the name of animation to play
          * @param dt delta time
          */
-        void play(const std::string key, const float& dt);
+        const bool& play(const std::string key, const float& dt, const bool priority = false);
 };
 
 #endif

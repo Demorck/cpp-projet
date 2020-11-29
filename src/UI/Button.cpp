@@ -4,6 +4,7 @@ Button::Button(float x, float y, float width, float height,
                 std::string text, sf::Font* font,
                 sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
 {
+    this->type = BTN_TEXT;
     this->state = BTN_IDLE;
 
     this->shape.setPosition(sf::Vector2f(x, y));
@@ -23,17 +24,28 @@ Button::Button(float x, float y, float width, float height,
     this->activeColor = activeColor;
 
     this->shape.setFillColor(this->idleColor);
+}
+
+Button::Button(float x, float y, float width, float height,
+                sf::Texture buttonTexture, sf::Texture buttonTextureHover)
+{
+    this->type = BTN_IMG;
+    this->state = BTN_IDLE;
+
+    this->shape.setPosition(sf::Vector2f(x, y));
+    this->shape.setSize(sf::Vector2f(width, height));
+
+    this->textureShape = buttonTexture;
+    this->textureShapeHover = buttonTextureHover;
+    this->shape.setTexture(&this->textureShape, true);
 
 }
 
 Button::~Button()
 {
-    delete this->font;
-}
-
-sf::RectangleShape Button::sh()
-{
-    return this->shape;
+    if (this->type == BTN_TEXT)
+        delete this->font;
+    
 }
 
 bool Button::isHovered() const
@@ -43,7 +55,7 @@ bool Button::isHovered() const
 
 bool Button::isPressed() const
 {
-    return this->state == BTN_PRESSED;
+    return this->state == BTN_ACTIVE;
 }
 
 void Button::update(const sf::Vector2f mousePosition)
@@ -59,23 +71,48 @@ void Button::update(const sf::Vector2f mousePosition)
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             
-            this->state = BTN_PRESSED;
+            this->state = BTN_ACTIVE;
         }
     } 
 
-    switch (this->state)
+    if (this->type == BTN_TEXT)
     {
-    case BTN_IDLE:
-    default:
-        this->shape.setFillColor(this->idleColor);
-        break;
-    case BTN_HOVER:
-        this->shape.setFillColor(this->hoverColor);
-        break;
-    case BTN_PRESSED:
-        this->shape.setFillColor(this->activeColor);
-        break;
+        switch (this->state)
+        {
+        case BTN_IDLE:
+            this->shape.setFillColor(this->idleColor);
+            break;
+        case BTN_HOVER:
+            this->shape.setFillColor(this->hoverColor);
+            break;
+        case BTN_ACTIVE:
+            this->shape.setFillColor(this->activeColor);
+            break;
+        default:
+            this->shape.setFillColor(sf::Color::Red);
+            break;
+        }
     }
+    else
+    {
+        switch (this->state)
+        {
+        case BTN_IDLE:
+            this->shape.setTexture(&this->textureShape);
+            break;
+        case BTN_HOVER:
+            this->shape.setTexture(&this->textureShapeHover);
+            break;
+        case BTN_ACTIVE:
+            this->shape.setFillColor(this->activeColor);
+            break;
+        default:
+            this->shape.setFillColor(sf::Color::Red);
+            break;
+        }
+    }
+    
+    
 }
 
 void Button::render(sf::RenderTarget* target)

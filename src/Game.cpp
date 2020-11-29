@@ -3,20 +3,23 @@
 void Game::initVariables()
 {
     this->window = nullptr;
+    this->settings = new Settings();
 }
 
 void Game::initWindow()
 {
-    this->videoMode.height = WINDOW_HEIGHT;
-    this->videoMode.width = WINDOW_WIDTH;
-    this->window = new sf::RenderWindow(this->videoMode, "Game", sf::Style::Titlebar | sf::Style::Close);
+
+    this->videoMode.height = this->settings->getWindowHeight();
+    this->videoMode.width = this->settings->getWindowWidth();
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+    this->window = new sf::RenderWindow(this->videoMode, this->settings->getTitle(), sf::Style::Titlebar | sf::Style::Close, settings);
     this->window->setFramerateLimit(120);
 }
 
 void Game::initStates()
 {
     this->states.push(new MainMenuState(this->window, &this->states));
-    // this->states.push(new GameState(this->window));
 }
 
 Game::Game()
@@ -24,11 +27,13 @@ Game::Game()
     this->initVariables();
     this->initWindow();
     this->initStates();
+
 }
 
 Game::~Game()
 {
     delete this->window;
+    delete this->settings;
 
     while (!this->states.empty())
     {

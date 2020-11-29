@@ -9,12 +9,14 @@ class MainMenuState:
     public State
 {
     private:
+        sf::Texture backgroundTexture;
         sf::RectangleShape background;
         sf::Font font;
 
-        // Button* gameStateBtn;
         std::map<std::string, Button*> buttons;
 
+        void initVariables();
+        void initBackground();
         void initFonts();
         void initKeybinds();
         void initButtons();
@@ -24,9 +26,11 @@ class MainMenuState:
         virtual ~MainMenuState();
 
         void endState();
+
         void updateInputs(const float& dt);
         void updateButtons();
         void update(const float& dt);
+        
         void renderButtons(sf::RenderTarget* target);
         void render(sf::RenderTarget* target = nullptr);
 };
